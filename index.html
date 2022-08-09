@@ -11,13 +11,36 @@
                         "bing": "https://www.bing.com/search" ,
                         "ask":"https://www.ask.com/web"
                     };
-   //code
             let form=document.getElementById("searchForm");
-			let selectedEngine=document.querySelector("input[name=engine]:checked")
+			let searchTerm = document.querySelector("input[name=q]").value;
 			//console.log(selectedEngine);
-			let action = actions[selectedEngine.value];
+			//let action = actions[selectedEngine.value];
 			//console.log(action);
             // let action =  "https://google.com/search"
+			
+            if (searchTerm.trim() === "") {
+                event.preventDefault();
+                alert("Please enter a search term");
+                return;
+            }
+
+            let selectedEngine = document.querySelector('input[name=engine]:checked');
+			//let action = actions[selectedEngine.value];
+            
+            if (selectedEngine === null) {
+                event.preventDefault();
+                alert('Invalid search engine selection');
+                return;
+            }
+
+            let action = actions[selectedEngine.value];
+
+            if (action === undefined) {
+                event.preventDefault();
+                alert('Invalid search engine selection');
+                return;
+            }
+
             form.setAttribute('action', action);
 				}			
 
